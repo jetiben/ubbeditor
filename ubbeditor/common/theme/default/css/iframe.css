@@ -14,5 +14,5 @@ pre {
   user-select: none; -moz-user-select: none; -webkit-user-select: none
 }
 .ubb_quote {
-  background: #f2f2f2; border: #ccc 1px dotted; border-left: #000 10px solid; margin: 10px 0px; padding: 10px; line-height: 150%
+  background: #f2f2f2; border: #ccc 1px dotted; border-left: #000 10px solid; margin: 10px 0px; padding: 10px; line-height: 150%; user-select: none; -moz-user-select: none; -webkit-user-select: none
 }

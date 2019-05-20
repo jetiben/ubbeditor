@@ -306,7 +306,7 @@ function ubbEditor(argId)
         [/\[ul\]([^\[]*?)\[\/ul\]/igm, '<ul>$1</ul>', true],
         [/\[li\]([^\[]*?)\[\/li\]/igm, '<li>$1</li>', true],
         [/\[code=([^\]]*)\]([\s\S]*?)\[\/code\]/igm, '<pre contentEditable="false"><code class="$1">$2</code></pre>', true],
-        [/\[quote\]([^\[]*?)\[\/quote\]/igm, '<div class="ubb_quote">$1</div>', true],
+        [/\[quote\]([^\[]*?)\[\/quote\]/igm, '<div class="ubb_quote" contentEditable="false">$1</div>', true],
         [/\[color=([^\]]*)\]([^\[]*?)\[\/color\]/igm, '<span style="color: $1">$2</span>', true],
         [/\[hilitecolor=([^\]]*)\]([^\[]*?)\[\/hilitecolor\]/igm, '<span style="background-color: $1">$2</span>', true],
         [/\[align=([^\]]*)\]([^\[]*?)\[\/align\]/igm, '<div align="$1">$2</div>', true],
@@ -869,7 +869,7 @@ function ubbEditor(argId)
       uHighlightScript.setAttribute('src', this.uBaseURL + 'vendor/highlight/highlight.pack.js');
       uFWObject.document.getElementsByTagName('head').item(0).appendChild(uHighlightScript);
       uHighlightScript.addEventListener('load', function(){ that.uPreCodeHighlightBlock(); });
-      uFWObject.document.addEventListener('keydown', function(e){
+      uFWObject.document.body.addEventListener('keydown', function(e){
         if (e.keyCode == 8)
         {
           that.uGetSelection();
@@ -884,7 +884,7 @@ function ubbEditor(argId)
               {
                 if (that.uSelection.focusOffset == 0) uPrevElement = that.uSelection.focusNode.parentNode.previousElementSibling;
               };
-              if (uPrevElement != null && uPrevElement.tagName == 'PRE')
+              if (uPrevElement != null && (uPrevElement.tagName == 'PRE' || (uPrevElement.tagName == 'DIV' && uPrevElement.className == 'ubb_quote')))
               {
                 e.preventDefault();
                 var uPrevElementParent = uPrevElement.parentNode;
@@ -901,8 +901,8 @@ function ubbEditor(argId)
           };
         };
       });
-      uFWObject.document.addEventListener('blur', function(){ that.uSetInputValue(); });
-      uFWObject.document.addEventListener('input', function(){
+      uFWObject.document.body.addEventListener('blur', function(){ that.uSetInputValue(); });
+      uFWObject.document.body.addEventListener('input', function(){
         if (that.uEditState == 1)
         {
           that.uGetSelection();
@@ -920,11 +920,7 @@ function ubbEditor(argId)
           {
             var uReplaceNewP = true;
             if (uFocusNode.getAttribute('align')) uReplaceNewP = false;
-            else if (uFocusNode.getAttribute('class'))
-            {
-              uReplaceNewP = false;
-              if (uFocusNode.getAttribute('class') == 'ubb_quote' && uIsInnerHTMLEmpty(uFocusNode.innerHTML)) uReplaceNewP = true;
-            };
+            else if (uFocusNode.getAttribute('class')) uReplaceNewP = false;
             if (uReplaceNewP == true)
             {
               var uNewP = document.createElement('p');
