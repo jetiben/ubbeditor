@@ -14,3 +14,6 @@
 
 ### 依赖
 没有JS框架依赖，包含了 PrismJs
+
+### 兼容性
+不兼容 Internet Explorer 所有版本
