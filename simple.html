@@ -4,13 +4,13 @@
 <meta http-equiv="x-ua-compatible" content="IE=EmulateIE7" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>ubbEditor Demo</title>
-<script type="text/javascript" src="../ubbeditor/ubbEditor.pack.js"></script>
+<script type="text/javascript" src="ubbeditor/ubbEditor.pack.js"></script>
 </head>
-<textarea id="content" name="content" style="width: 800px; height: 400px"></textarea>
+<div style="width: 800px; height: 400px; margin: auto"><textarea id="content" name="content" style="width: 100%; height: 100%"></textarea></div>
 <script type="text/javascript">
 var nEditor = new ubbEditor('content');
 nEditor.uToolbar = 'simple';
-nEditor.uInit('../ubbeditor/');
+nEditor.uInit('ubbeditor/');
 </script>
 </body>
 </html>
