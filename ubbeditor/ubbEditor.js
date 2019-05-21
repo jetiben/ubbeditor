@@ -77,13 +77,13 @@ function ubbEditor(argId)
     var that = this;
     var thisInstance = this.uInstance;
     thisInstance.document.querySelectorAll('pre').forEach(function(itemObject){
-      if (itemObject.getAttribute('class') == null)
+      if (itemObject.getAttribute('class') == 'line-numbers')
       {
         that.uParamIndex += 1;
         that.uParamArray['precode' + that.uParamIndex] = itemObject.querySelector('code').innerHTML;
         itemObject.setAttribute('language', itemObject.querySelector('code').getAttribute('class'));
         itemObject.setAttribute('paramIndex', that.uParamIndex);
-        thisInstance.hljs.highlightBlock(itemObject);
+        thisInstance.window.Prism.highlightElement(itemObject.querySelector('code'));
       };
     });
   };
@@ -305,7 +305,7 @@ function ubbEditor(argId)
         [/\[ol\]([^\[]*?)\[\/ol\]/igm, '<ol>$1</ol>', true],
         [/\[ul\]([^\[]*?)\[\/ul\]/igm, '<ul>$1</ul>', true],
         [/\[li\]([^\[]*?)\[\/li\]/igm, '<li>$1</li>', true],
-        [/\[code=([^\]]*)\]([\s\S]*?)\[\/code\]/igm, '<pre contentEditable="false"><code class="$1">$2</code></pre>', true],
+        [/\[code=([^\]]*)\]([\s\S]*?)\[\/code\]/igm, '<pre class="line-numbers" contentEditable="false"><code class="$1">$2</code></pre>', true],
         [/\[quote\]([^\[]*?)\[\/quote\]/igm, '<div class="ubb_quote" contentEditable="false">$1</div>', true],
         [/\[color=([^\]]*)\]([^\[]*?)\[\/color\]/igm, '<span style="color: $1">$2</span>', true],
         [/\[hilitecolor=([^\]]*)\]([^\[]*?)\[\/hilitecolor\]/igm, '<span style="background-color: $1">$2</span>', true],
@@ -657,7 +657,7 @@ function ubbEditor(argId)
                 var uCurrentCodeContent = uObj.querySelector('.ubbEditorCodeTextarea').value;
                 if (uCurrentCodeContent)
                 {
-                  that.uInsertHTML('<pre contentEditable="false"><code class="' + that.uHTMLEncode(uCurrentCodeLanguage) + '">' + that.uHTMLEncode(uCurrentCodeContent) + '</code></pre><p><br /></p>');
+                  that.uInsertHTML('<pre class="line-numbers" contentEditable="false"><code class="language-' + that.uHTMLEncode(uCurrentCodeLanguage) + '">' + that.uHTMLEncode(uCurrentCodeContent) + '</code></pre><p><br /></p>');
                 };
                 that.uLoadMaskClose();
               };
@@ -847,7 +847,7 @@ function ubbEditor(argId)
       var uFWObject = this.uFW(this.uId + '-iframe');
       if (this.uEditUBBMode == 1) this.uValue = this.uUBB2XHTML(this.uValue);
       uFWObject.document.open();
-      uFWObject.document.writeln('<!DOCTYPE html><html><head><link href="' + this.uBaseURL + 'vendor/highlight/styles/monokai.css" rel="stylesheet" type="text/css" /><link href="' + this.uBaseURL + 'common/theme/' + this.uTheme + '/css/iframe.css" rel="stylesheet" type="text/css" /></head><body contentEditable="true" dir="ltr"></body></html>');
+      uFWObject.document.writeln('<!DOCTYPE html><html><head><link href="' + this.uBaseURL + 'vendor/prism/prism.css" rel="stylesheet" type="text/css" /><link href="' + this.uBaseURL + 'common/theme/' + this.uTheme + '/css/iframe.css" rel="stylesheet" type="text/css" /></head><body contentEditable="true" dir="ltr"></body></html>');
       uFWObject.document.close();
       uFWObject.document.body.style.minHeight = (uIdObjectHeight - this.uPanelHeight - 30) + 'px';
       var uCurrentValue = this.uValue;
@@ -866,7 +866,7 @@ function ubbEditor(argId)
         that.uSelection.collapseToStart();
       };
       var uHighlightScript = document.createElement('script');
-      uHighlightScript.setAttribute('src', this.uBaseURL + 'vendor/highlight/highlight.pack.js');
+      uHighlightScript.setAttribute('src', this.uBaseURL + 'vendor/prism/prism.js');
       uFWObject.document.getElementsByTagName('head').item(0).appendChild(uHighlightScript);
       uHighlightScript.addEventListener('load', function(){ that.uPreCodeHighlightBlock(); });
       uFWObject.document.body.addEventListener('keydown', function(e){
