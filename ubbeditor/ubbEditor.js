@@ -48,7 +48,7 @@ function ubbEditor(argId)
   this.uSystem = 'UBBEditor';
   this.uVersion = '2.0';
   this.uAuthor = 'Jetiben';
-  this.uWebSite = 'github.com/jetiben';
+  this.uWebSite = 'https://jetiben.github.io/ubbeditor/';
   this.uEI = function(argId)
   {
     return document.getElementById(argId);
