@@ -768,9 +768,9 @@ function ubbEditor(argId)
   };
   this.uLoadSmileyPopup = function()
   {
-    var uSmileyArray = new Array('😁','😂','😃','😄','😅','😆','😉','😊','😋','😌','😍','😏','😒','😓','😔','😖','😘','😚','😜','😝','😞','😠','😡','😢','😣','😤','😥','😨','😩','😪','😫','😭','😰','😱','😲','😳','😵','😷','😀','😎');
+    var uSmileyArray = new Array('😁','😂','😃','😄','😅','😆','😉','😊','😋','😌','😍','😏','😒','😓','😔','😖','😘','😚','😜','😝','😞','😠','😡','😢','😣','😤','😥','😨','😩','😪','😫','😭','😰','😱','😲','😳','😵','😷','😀','😎','🙏','👈','👉','👊','👌','👍','👎','👏');
     var uPopupHTML = '<div class="ubbEditorPopup">';
-    uPopupHTML += '  <div class="ubbEditorPopupTitle">' + this.uLangMap.tImageURL + '</div>';
+    uPopupHTML += '  <div class="ubbEditorPopupTitle">' + this.uLangMap.tSmileyImage + '</div>';
     uPopupHTML += '  <div class="ubbEditorPopupMain">';
     uPopupHTML += '    <div class="ubbEditorPopupSmiley">';
     for (var ti = 0; ti < uSmileyArray.length; ti ++)
