@@ -7,8 +7,8 @@ function ubb2html($argContent)
   {
     $regexAry = array();
     $content = htmlspecialchars($content);
-    $content = str_replace('  ', '&nbsp; ', $content);
-    $content = str_replace('  ', ' &nbsp;', $content);
+    $content = str_replace(' ', '&nbsp;', $content);
+    $content = str_replace('&nbsp;&nbsp;', '&nbsp; ', $content);
     $content = preg_replace("/\[br\]/is", "<br />", $content);
     $regexAry[0] = array("\[p\]([^\[]*?)\[\/p\]", "<p>\\1</p>");
     $regexAry[1] = array("\[b\]([^\[]*?)\[\/b\]", "<b>\\1</b>");
